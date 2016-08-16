@@ -94,6 +94,11 @@ new_post <- function(title = "new post", date = Sys.Date(), serve = TRUE, dir = 
          the right directory?")
   }
 
+  # Check that date provided is in 'YYYY-MM-DD' format. If not, throw an error.
+  if(is.na(as.Date(date, "%Y-%m-%d")) | nchar(strsplit(date,"-")[[1]][1]) != 4){
+    stop("Please enter date as 'YYYY-MM-DD' character string.")
+  }
+
   # Sanitise the post title
   fname <- filenamise(title, sep_char = "-")
 
@@ -115,7 +120,7 @@ new_post <- function(title = "new post", date = Sys.Date(), serve = TRUE, dir = 
   }
 
   post <- readLines(skeleton_file)
-  post[grepl("title: ", post)] <- paste0("title:  ", title)
+  post[grepl("title: ", post)] <- paste0("title:  ", toTitleCase(title))
   post[grepl("date: ", post)] <- paste0("date:  ", date)
   writeLines(post, rmd_name)
 
