@@ -1,0 +1,17 @@
+Package: blance
+Type: Package
+Title: blance
+Version: 0.1.0
+Authors@R: person("Brian", "Lance", email = "brianrlance@gmail.com",
+  role = c("aut","cre"))
+Description: These are my personal convenience functions.
+URL: https://github.com/brlancer/blance
+License: GPL-3
+LazyData: TRUE
+Imports:
+    dplyr,
+    data.table,
+    ggplot2,
+    magrittr,
+    lubridate
+RoxygenNote: 5.0.1
