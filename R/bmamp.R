@@ -14,7 +14,7 @@
 #' A database named 'test' must exist in MAMP in order for the example to work.
 #' con <- mampConnect("test")
 #' @export
-mampConnect <- function(dbname) {
+mamp_connect <- function(dbname) {
   requireNamespace("RMySQL", quietly = TRUE)
   con <- RMySQL::dbConnect(RMySQL::MySQL()
                            , username="root"

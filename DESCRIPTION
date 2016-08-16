@@ -7,7 +7,7 @@ Authors@R: person("Brian", "Lance", email = "brianrlance@gmail.com",
 Description: These are my personal convenience functions.
 URL: https://github.com/brlancer/blance
 URL: https://github.com/brlancer/blance/issues
-License: GPL-3
+License: MIT + file LICENSE
 LazyData: TRUE
 Imports:
     dplyr,
