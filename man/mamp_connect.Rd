@@ -22,8 +22,4 @@ You must have MAMP installed and running to use this function.
 
 Thank you to Andrew Knight for \href{http://apknightcode.blogspot.com/2012/09/first-post.html}{blogging about this}.
 }
-\examples{
-A database named 'test' must exist in MAMP in order for the example to work.
-con <- mampConnect("test")
-}
 

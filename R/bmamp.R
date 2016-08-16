@@ -10,12 +10,8 @@
 #' @param dbname a string corresponding to a database name in MAMP.
 #' @return A MySQLConnection object is returned, and should be passed
 #'    to a new variable when calling mampConnect.
-#' @examples
-#' A database named 'test' must exist in MAMP in order for the example to work.
-#' con <- mampConnect("test")
 #' @export
 mamp_connect <- function(dbname) {
-  requireNamespace("RMySQL", quietly = TRUE)
   con <- RMySQL::dbConnect(RMySQL::MySQL()
                            , username="root"
                            , host="localhost"

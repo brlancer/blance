@@ -22,5 +22,6 @@ Imports:
     png,
     scales,
     htmltools,
-    DBI
+    DBI,
+    RMySQL
 RoxygenNote: 5.0.1
