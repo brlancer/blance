@@ -77,17 +77,19 @@ filenamize <- function(x, sep_char = "_", ext = ""){
 #' @param subdir Should the post live in a subdirectory? Defaults to \code{TRUE}
 #' @param skeleton_file The filepath of a skeleton blog post which will be used
 #'   as the basis for the basis for the newly created file
+#' @param date The date to show the post was published. Defaults to \code{as.character(Sys.Date())}
 #'
 #' @details { \code{new_post} will create a .R file, and a .Rmd file (by default
 #'   in a subdirectory), with names created by running \code{title} through
-#'   \code{\link{filenamise}}. The .R file will contain a short note mentioning
+#'   \code{\link{filenamize}}. The .R file will contain a short note mentioning
 #'   that it accompanies the .Rmd file, which will contain the same text as the
 #'   file supplied by \code{skeleton_post} paramter. Both files will be opened
 #'   using \code{\link{sys_open}}. }
 #'
 #' @export
-new_post <- function(title = "new post", date = Sys.Date(), serve = TRUE, dir = "_source",
-                     subdir = TRUE, skeleton_file = ".skeleton_post"){
+new_post <- function(title = "new post", date = as.character(Sys.Date()),
+                     serve = TRUE, dir = "_source", subdir = TRUE,
+                     skeleton_file = ".skeleton_post.Rmd"){
 
   if(!dir.exists(dir)){
     stop("The directory '", dir, "' doesn't exist. Are you running R in
@@ -100,7 +102,7 @@ new_post <- function(title = "new post", date = Sys.Date(), serve = TRUE, dir = 
   }
 
   # Sanitise the post title
-  fname <- filenamise(title, sep_char = "-")
+  fname <- filenamize(title, sep_char = "-")
 
   if(subdir){
     fpath <- file.path(dir, paste0(as.character(as.Date(date, "%Y-%m-%d")), "-", fname))
@@ -115,13 +117,15 @@ new_post <- function(title = "new post", date = Sys.Date(), serve = TRUE, dir = 
   # Read in the skeleton post
   # If it doesn't exist, emit a warning and use the package default
   if(!file.exists(skeleton_file)){
-    message("File .skeleton_post does not exist. Using package default")
-    skeleton_file <- system.file("skeleton_post.Rmd", package = "brocks")
+    message("File '.skeleton_post.Rmd' does not exist. Using package default")
+    skeleton_file <- system.file("skeleton_post.Rmd", package = "blance")
   }
 
+  # generate post from skeleton_file
   post <- readLines(skeleton_file)
-  post[grepl("title: ", post)] <- paste0("title:  ", toTitleCase(title))
-  post[grepl("date: ", post)] <- paste0("date:  ", date)
+  # set YAML
+  post[grepl("title: ", post)] <- paste0("title: \"", tools::toTitleCase(title), "\"")
+  post[grepl("date: ", post)] <- paste0("date: \"", date, " \"")
   writeLines(post, rmd_name)
 
   # Write out an empty R file as well, in case that's useful
@@ -227,3 +231,5 @@ blog_opts <- function(...){
     ...
   )
 }
+
+
