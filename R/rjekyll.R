@@ -51,8 +51,7 @@ sys_open <- function (f){
 #' @return \code{character}
 #'
 #' @export
-#' @aliases filenamize
-filenamise <- function(x, sep_char = "_", ext = ""){
+filenamize <- function(x, sep_char = "_", ext = ""){
   paste0(
     gsub(
       paste0(sep_char, "$|^", sep_char), "",
@@ -132,7 +131,6 @@ new_post <- function(title = "new post", date = Sys.Date(), serve = TRUE, dir = 
   if(serve)
     blog_serve()
 }
-
 #' Serve or Compile a Jekyll Blog
 #'
 #' Serve or Compile a Jekyll Blog. A small wrapper around
